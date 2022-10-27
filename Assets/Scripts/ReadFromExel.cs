@@ -15,9 +15,8 @@ public class ReadFromExel : MonoBehaviour
     string[] lines = new string[50];
     string[] colums = new string[50];
     string[,] Master = new string[50,50];
-    List<string> heb;
-    List<string> eng = new List<string>();
-    List<string> arab = new List<string>();
+
+    bool HasErrors;
 
 
     private void Start()
@@ -56,7 +55,7 @@ public class ReadFromExel : MonoBehaviour
     {
         if (System.IO.File.ReadAllText(filePath) != null)
         {
-            BigString = System.IO.File.ReadAllText(filePath);
+           
             return true;
         }
         else
