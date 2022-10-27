@@ -7,43 +7,36 @@ using System;
 public class ReadFromExel : MonoBehaviour
 {
     [SerializeField] Text UiText;
-    [SerializeField] int collum;
-    [SerializeField] int Line;
 
     string filePath = "D:/downloadss/ReadFromExel/Data.csv";
-    string BigString;
-    string[] lines = new string[50];
-    string[] colums = new string[50];
-    string[,] Master = new string[50,50];
-
-    bool HasErrors;
-
+    string rawExelSheetData;
+    string[,] exelSheet = new string[50,50];
 
     private void Start()
     {
         DoesDataFileExists(filePath);
         InitMaster();
 
-        print(Master[0, 0]);
-        print(Master[1, 0]);
-        print(Master[2, 0]);
+        print(exelSheet[0, 0]);
+        print(exelSheet[1, 0]);
+        print(exelSheet[2, 0]);
     }
 
     private void InitMaster()
     {
         if (ErrorFree())
         {
-            BigString = System.IO.File.ReadAllText(filePath);
-            lines = BigString.Split("\n"[0]);
+            rawExelSheetData = System.IO.File.ReadAllText(filePath);
+            string[] lines = rawExelSheetData.Split("\n"[0]);
 
             for (int i = 0; i < lines.Length; i++)
             {
-                colums = lines[i].Split(',');
+                string[] colums = lines[i].Split(',');
 
                 for (int x = 0; x < colums.Length; x++)
                 {
 
-                    Master[i, x] = colums[x];
+                    exelSheet[i, x] = colums[x];
 
                 }
             }
@@ -64,7 +57,7 @@ public class ReadFromExel : MonoBehaviour
             return false;
         }
         
-    }
+    } // checks if filepath != null
 
     private void DoesDataFileExists(string FilePath)
     {
@@ -73,7 +66,7 @@ public class ReadFromExel : MonoBehaviour
 
             try
             {
-                BigString = System.IO.File.ReadAllText(FilePath);
+                rawExelSheetData = System.IO.File.ReadAllText(FilePath);
             }
             catch (Exception)
             {
