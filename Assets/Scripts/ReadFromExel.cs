@@ -11,20 +11,25 @@ public class ReadFromExel : MonoBehaviour
     string filePath = "D:/downloadss/ReadFromExel/Data.csv";
     string rawExelSheetData;
     string[,] exelSheet = new string[50,50];
-
+    bool ErrorFree;
     private void Start()
     {
-        DoesDataFileExists(filePath);
+        
         InitMaster();
 
-        print(exelSheet[0, 0]);
-        print(exelSheet[1, 0]);
-        print(exelSheet[2, 0]);
+
+        if (ErrorFree)
+        {
+            print(exelSheet[0, 0]);
+            print(exelSheet[1, 0]);
+            print(exelSheet[2, 0]);
+        }
+       
     }
 
     private void InitMaster()
     {
-        if (ErrorFree())
+        if (DoesDataFileExists(filePath))
         {
             rawExelSheetData = System.IO.File.ReadAllText(filePath);
             string[] lines = rawExelSheetData.Split("\n"[0]);
@@ -35,31 +40,15 @@ public class ReadFromExel : MonoBehaviour
 
                 for (int x = 0; x < colums.Length; x++)
                 {
-
                     exelSheet[i, x] = colums[x];
-
                 }
             }
         }
        
     }
 
-    private bool ErrorFree()
-    {
-        if (System.IO.File.ReadAllText(filePath) != null)
-        {
-           
-            return true;
-        }
-        else
-        {
-            UiText.text = "file not found";
-            return false;
-        }
-        
-    } // checks if filepath != null
-
-    private void DoesDataFileExists(string FilePath)
+   
+    private bool DoesDataFileExists(string FilePath)
     {
         if (System.IO.File.Exists(FilePath))
         {
@@ -70,15 +59,18 @@ public class ReadFromExel : MonoBehaviour
             }
             catch (Exception)
             {
-
                 UiText.text = $"Please Close File!! at {FilePath}";
-
+                print($"Please Close File!! at {FilePath}");
+                return false;
             }
         }
         else
         {
             UiText.text = $"File Not Found! at {FilePath}";
+            print($"File Not Found! at {FilePath}");
+            return false;
         }
+        return true;
     }
 
 
