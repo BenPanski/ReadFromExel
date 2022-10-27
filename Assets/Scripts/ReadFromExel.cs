@@ -23,71 +23,31 @@ public class ReadFromExel : MonoBehaviour
 
     private void Start()
     {
-         DoesDataFileExists(filePath);
+        DoesDataFileExists(filePath);
+        InitMaster();
 
-        /* 
-         IntializeData();
-         OrganizeData();
-         foreach (var item in heb)
-         {
-           //  print(item);
-         }*/
+        print(Master[0, 0]);
+        print(Master[1, 0]);
+        print(Master[2, 0]);
+    }
 
+    private void InitMaster()
+    {
         BigString = System.IO.File.ReadAllText(filePath);
         lines = BigString.Split("\n"[0]);
 
         for (int i = 0; i < lines.Length; i++)
         {
-            colums =   lines[i].Split(',');
+            colums = lines[i].Split(',');
 
             for (int x = 0; x < colums.Length; x++)
             {
-                
-                Master[i,x] = colums[x];
+
+                Master[i, x] = colums[x];
 
             }
         }
-
-        print(Master[0,0]);
-        print(Master[1, 0]);
-        print(Master[2, 0]);
     }
-
-    /* private void OrganizeData()
-     {
-         if (exelData != null)
-         {
-
-             foreach (var word in exelData[1,])
-             {
-                 heb.Add(word);
-             }
-         }
-         else
-         {
-             print("exel data is null");
-         }
-     }*/
-
-    /* private void IntializeData()
-      {
-          lines = filePath.Split("\n"[0]);
-
-          exelData = new string[50][];
-          int i = 0, j = 0;
-
-          foreach (var item in lines)
-          {
-              string[] col = item.Split(',');
-              foreach (var word in col)
-              {
-                  exelData[j][i] = word;
-                  j++;
-              }
-              i++;
-          }
-          print("word added");
-      }*/
 
     private void DoesDataFileExists(string FilePath)
     {
