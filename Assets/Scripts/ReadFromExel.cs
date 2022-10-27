@@ -15,7 +15,6 @@ public class ReadFromExel : MonoBehaviour
     string[] lines = new string[50];
     string[] colums = new string[50];
     string[,] Master = new string[50,50];
-    string[,] exelData;
     List<string> heb;
     List<string> eng = new List<string>();
     List<string> arab = new List<string>();
@@ -33,20 +32,39 @@ public class ReadFromExel : MonoBehaviour
 
     private void InitMaster()
     {
-        BigString = System.IO.File.ReadAllText(filePath);
-        lines = BigString.Split("\n"[0]);
-
-        for (int i = 0; i < lines.Length; i++)
+        if (ErrorFree())
         {
-            colums = lines[i].Split(',');
+            BigString = System.IO.File.ReadAllText(filePath);
+            lines = BigString.Split("\n"[0]);
 
-            for (int x = 0; x < colums.Length; x++)
+            for (int i = 0; i < lines.Length; i++)
             {
+                colums = lines[i].Split(',');
 
-                Master[i, x] = colums[x];
+                for (int x = 0; x < colums.Length; x++)
+                {
 
+                    Master[i, x] = colums[x];
+
+                }
             }
         }
+       
+    }
+
+    private bool ErrorFree()
+    {
+        if (System.IO.File.ReadAllText(filePath) != null)
+        {
+            BigString = System.IO.File.ReadAllText(filePath);
+            return true;
+        }
+        else
+        {
+            UiText.text = "file not found";
+            return false;
+        }
+        
     }
 
     private void DoesDataFileExists(string FilePath)
