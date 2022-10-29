@@ -10,7 +10,7 @@ public class ReadFromExel : MonoBehaviour
 
     string filePath = "D:/downloadss/ReadFromExel/Data.csv";            // path to exel sheet
     string rawExelSheetData;                                           // raw data in a long string
-    string[,] exelSheet = new string[50, 50];                          //init empty ExelSheet
+    string[,] exelSheet = new string[100, 100];                          //init empty ExelSheet
     bool ErrorFree;                                                    // has the path been found and has no errors?
     private void Start()
     {
@@ -19,20 +19,33 @@ public class ReadFromExel : MonoBehaviour
 
         if (ErrorFree)
         {
-            print(exelSheet[0, 0]);
-            print(exelSheet[1, 0]);
-            print(exelSheet[2, 0]);
-            print(exelSheet[0, 0]);
-            print(exelSheet[0, 1]);
-            print(exelSheet[0, 2]);
-
-
+            GetLanguageData(2,1);
+           
         }
         else
         {
             print("error");
         }
     }
+
+    private List<string> GetLanguageData(int Collum,int FromRow)
+    {
+      var temp = new List<string>();
+
+        for (int i = Collum; i < 100; i++)
+        {
+            if (  String.IsNullOrWhiteSpace(exelSheet[i, FromRow]))
+            {
+                print("inside if");
+                return temp;
+            }
+            print(exelSheet[i, FromRow]);
+            temp.Add(exelSheet[i, FromRow]);
+
+        }
+        return temp;
+    }
+
     private void Init()
     {
         if (DoesDataFileExists(filePath))
