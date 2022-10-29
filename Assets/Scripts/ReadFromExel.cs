@@ -11,7 +11,8 @@ public class ReadFromExel : MonoBehaviour
     string filePath = "D:/downloadss/ReadFromExel/Data.csv";            // path to exel sheet
     string rawExelSheetData;                                           // raw data in a long string
     string[,] exelSheet = new string[100, 100];                          //init empty ExelSheet
-    bool ErrorFree;                                                    // has the path been found and has no errors?
+    bool ErrorFree;                                                    // has the path been found no errors have occurred??
+
     private void Start()
     {
         Init();
@@ -19,8 +20,19 @@ public class ReadFromExel : MonoBehaviour
 
         if (ErrorFree)
         {
-            GetLanguageData(2,1);
-           
+
+            foreach (var item in GiveMeQuestion(GetLanguageData(1, 1))) // prints out a random hebrew qustion , answer first
+            {
+                print(item);
+            }
+            foreach (var item in GiveMeQuestion(GetLanguageData(1, 2))) // prints out a random eng qustion , answer first
+            {
+                print(item);
+            }
+            foreach (var item in GiveMeQuestion(GetLanguageData(1, 3))) // prints out a random arab qustion , answer first
+            {
+                print(item);
+            }
         }
         else
         {
@@ -28,18 +40,25 @@ public class ReadFromExel : MonoBehaviour
         }
     }
 
-    private List<string> GetLanguageData(int Collum,int FromRow)
+    private List<string> GiveMeQuestion(List<string> LanguageData) //returns a random list of qustions and the relevent answer
     {
-      var temp = new List<string>();
+        System.Random random = new System.Random();
+        int chosen = random.Next(1, (int)LanguageData.Count / 5);
+        print("random qustion number chosen is " + chosen);
+        return new List<string> { LanguageData[(chosen - 1) * 5], LanguageData[(chosen - 1) * 5 + 1], LanguageData[(chosen - 1) * 5 + 2], LanguageData[(chosen - 1) * 5 + 3], LanguageData[(chosen - 1) * 5 + 4] };
+    }
+
+    private List<string> GetLanguageData(int Collum, int FromRow)
+    {
+        var temp = new List<string>();
 
         for (int i = Collum; i < 100; i++)
         {
-            if (  String.IsNullOrWhiteSpace(exelSheet[i, FromRow]))
+            if (String.IsNullOrWhiteSpace(exelSheet[i, FromRow]))
             {
-                print("inside if");
                 return temp;
             }
-            print(exelSheet[i, FromRow]);
+            //print(exelSheet[i, FromRow]);
             temp.Add(exelSheet[i, FromRow]);
 
         }
