@@ -8,10 +8,10 @@ public class ReadFromExel : MonoBehaviour
 {
     [SerializeField] Text UiText;
 
-    string filePath = "D:/downloadss/ReadFromExel/Data.csv";
-    string rawExelSheetData;
-    string[,] exelSheet = new string[50, 50];
-    bool ErrorFree;
+    string filePath = "D:/downloadss/ReadFromExel/Data.csv";            // path to exel sheet
+    string rawExelSheetData;                                           // raw data in a long string
+    string[,] exelSheet = new string[50, 50];                          //init empty ExelSheet
+    bool ErrorFree;                                                    // has the path been found and has no errors?
     private void Start()
     {
 
