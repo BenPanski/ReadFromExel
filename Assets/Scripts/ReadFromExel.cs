@@ -14,7 +14,6 @@ public class ReadFromExel : MonoBehaviour
     bool ErrorFree;                                                    // has the path been found and has no errors?
     private void Start()
     {
-
         Init();
 
 
@@ -23,6 +22,15 @@ public class ReadFromExel : MonoBehaviour
             print(exelSheet[0, 0]);
             print(exelSheet[1, 0]);
             print(exelSheet[2, 0]);
+            print(exelSheet[0, 0]);
+            print(exelSheet[0, 1]);
+            print(exelSheet[0, 2]);
+
+
+        }
+        else
+        {
+            print("error");
         }
     }
     private void Init()
@@ -57,6 +65,7 @@ public class ReadFromExel : MonoBehaviour
             {
                 UiText.text = $"Please Close File!! at {FilePath}";
                 print($"Please Close File!! at {FilePath}");
+                ErrorFree = false;
                 return false;
             }
         }
@@ -64,8 +73,10 @@ public class ReadFromExel : MonoBehaviour
         {
             UiText.text = $"File Not Found! at {FilePath}";
             print($"File Not Found! at {FilePath}");
+            ErrorFree = false;
             return false;
         }
+        ErrorFree = true;
         return true;
     }
 
