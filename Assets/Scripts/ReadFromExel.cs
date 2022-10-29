@@ -10,12 +10,12 @@ public class ReadFromExel : MonoBehaviour
 
     string filePath = "D:/downloadss/ReadFromExel/Data.csv";
     string rawExelSheetData;
-    string[,] exelSheet = new string[50,50];
+    string[,] exelSheet = new string[50, 50];
     bool ErrorFree;
     private void Start()
     {
-        
-        InitMaster();
+
+        Init();
 
 
         if (ErrorFree)
@@ -24,10 +24,8 @@ public class ReadFromExel : MonoBehaviour
             print(exelSheet[1, 0]);
             print(exelSheet[2, 0]);
         }
-       
     }
-
-    private void InitMaster()
+    private void Init()
     {
         if (DoesDataFileExists(filePath))
         {
@@ -44,15 +42,13 @@ public class ReadFromExel : MonoBehaviour
                 }
             }
         }
-       
+
     }
 
-   
     private bool DoesDataFileExists(string FilePath)
     {
         if (System.IO.File.Exists(FilePath))
         {
-
             try
             {
                 rawExelSheetData = System.IO.File.ReadAllText(FilePath);
@@ -72,8 +68,6 @@ public class ReadFromExel : MonoBehaviour
         }
         return true;
     }
-
-
 
 
 }
